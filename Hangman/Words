@@ -1,76 +1,76 @@
 package hangman;
-2
-3import java.io.BufferedReader;
-4import java.io.FileNotFoundException;
-5import java.io.FileReader;
-6import java.io.IOException;
-7import java.util.ArrayList;
-8import java.util.Iterator;
-9import java.util.Random;
-10
-11public class Words implements Iterable<String> {
-12	ArrayList<String> words;
-13	
-14	/**
-15	 * Creates a new Words object.
-16	 * @param file the file to read words from
-17	 */
-18	public Words(String file) {
-19		words = readWordFile(file);
-20	}
-21
-22	/**
-23	 * Reads a file of words.
-24	 * @param file the file to read words from
-25	 * @return array list of words
-26	 */
-27	private ArrayList<String> readWordFile(String file) {
-28		try {
-29			FileReader 	      fr    = new FileReader(file);
-30			BufferedReader    br    = new BufferedReader(fr);
-31			ArrayList<String> words = new ArrayList<String>();
-32			String word; //       = null;
-33			while ((word = br.readLine()) != null) {
-34				words.add(word.trim());
-35			}
-36			br.close();
-37			return words;
-38		} catch (FileNotFoundException e) {
-39			System.err.println("Could not read the file " + file);
-40			return new ArrayList<String>();
-41		} catch (IOException e) {
-42			System.err.println("Problem reading the file " + file);
-43			return new ArrayList<String>();
-44		}
-45	}
-46
-47	/**
-48	 * Returns a randomly chosen word (String) from the list.
-49	 * @return a word as a string
-50	 */
-51	public String pick() {
-52		int    size   = words.size();
-53		Random random = new Random();
-54		int    index  = random.nextInt(size-1); 
-55		return words.get(index);
-56	}
-57	
-58	/**
-59	 * Returns true if the word is in Words; false otherwise.
-60	 * @param word the word to look for
-61	 * @return true if the word is in Words; false otherwise
-62	 */
-63	public boolean has(String word) {
-64		for (String w : words) {
-65			if (w.equals(word))
-66				return true;
-67		}
-68		return false;
-69	}
-70	
-71	@Override
-72	public Iterator<String> iterator() {
-73		return words.iterator();
-74	}
-75
-76}
+
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Random;
+
+public class Words implements Iterable<String> {
+	ArrayList<String> words;
+	
+	/**
+	 * Creates a new Words object.
+	 * @param file the file to read words from
+	 */
+	public Words(String file) {
+		words = readWordFile(file);
+	}
+
+	/**
+	 * Reads a file of words.
+	 * @param file the file to read words from
+	 * @return array list of words
+	 */
+	private ArrayList<String> readWordFile(String file) {
+		try {
+			FileReader 	      fr    = new FileReader(file);
+			BufferedReader    br    = new BufferedReader(fr);
+			ArrayList<String> words = new ArrayList<String>();
+			String word; //       = null;
+			while ((word = br.readLine()) != null) {
+				words.add(word.trim());
+			}
+			br.close();
+			return words;
+		} catch (FileNotFoundException e) {
+			System.err.println("Could not read the file " + file);
+			return new ArrayList<String>();
+		} catch (IOException e) {
+			System.err.println("Problem reading the file " + file);
+			return new ArrayList<String>();
+		}
+	}
+
+	/**
+	 * Returns a randomly chosen word (String) from the list.
+	 * @return a word as a string
+	 */
+	public String pick() {
+		int    size   = words.size();
+		Random random = new Random();
+		int    index  = random.nextInt(size-1); 
+		return words.get(index);
+	}
+	
+	/**
+	 * Returns true if the word is in Words; false otherwise.
+	 * @param word the word to look for
+	 * @return true if the word is in Words; false otherwise
+	 */
+	public boolean has(String word) {
+		for (String w : words) {
+			if (w.equals(word))
+				return true;
+		}
+		return false;
+	}
+	
+	@Override
+	public Iterator<String> iterator() {
+		return words.iterator();
+	}
+
+}
