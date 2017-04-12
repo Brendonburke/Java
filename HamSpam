@@ -1,0 +1,72 @@
+package hamspam;
+2
+3public class HamSpam {
+4	private  int hamNumber;
+5	private  int spamNumber;
+6int ham;
+7int spam;
+8	/**
+9	 * Construct an object that can compute hamspam values for a game of 
+10	 * Ham and Spam.
+11	 * 
+12	 * @param hamNumber the ham number; it must be greater than 1
+13	 * @param spamNumber the spam number; it must be greater 
+14	 * than 1 and not equal to the ham number 
+15	 */
+16	public HamSpam(int hamNumber, int spamNumber) {
+17		ham = hamNumber;
+18		spam = spamNumber;
+19	}
+20
+21	/**
+22	 * Returns the nth hamspam value (a number, ham, spam, or hamspam) 
+23	 * for this game of Ham and Spam.
+24	 * 
+25	 * For example, getValue(1) returns "1".
+26	 * 
+27	 * @param n
+28	 *            the number to consider; n > 0
+29	 * @return the hamspam value, as a String
+30	 */
+31	public String getValue(int n) {
+32		if (n % ham == 0 && n%spam != 0) {
+33			return "ham";
+34		}
+35
+36		if (n % spam == 0 && n % ham != 0) {
+37			return "spam";
+38		}
+39		if (n % ham == 0 && n % spam == 0 ){
+40			return "hamspam";
+41		}
+42		
+43		else {
+44			return Integer.toString(n);
+45		}   
+46	}
+47
+48	/**
+49	 * Returns an array of the hamspam values from start to end, inclusive, for
+50	 * this game of Ham and Spam.
+51	 * 
+52	 * For example, if the ham number is 3 and the spam number is 4,
+53	 * getValues(2,6) should return an array of Strings:
+54	 * 
+55	 * {"2", "ham", "spam", "5", "ham"}
+56	 * 
+57	 * @param start
+58	 *            the number to start from; start > 0
+59	 * @param end
+60	 *            the number to end at; end >= start
+61	 * @return the array of hamspam values
+62	 */
+63	public String[] getValues(int start, int end) {
+64        int num = start;
+65        String[] value= new String[end-start+1];
+66        for(int i = 0; num<=end; i++, num++){
+67        	value[i]=getValue(num);
+68        	
+69        }
+70		return value;
+71	}
+72}
