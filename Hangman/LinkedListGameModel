@@ -1,0 +1,84 @@
+package hangman;
+
+public class LinkedListGameModel implements GameModel {
+	 private int state=0;
+	 int numGuess=0;
+	 private String word;
+	 private LLCharacterNode guessBlank;
+	 private LLCharacterNode guessList;
+	 public LinkedListGameModel(String guessWord) {
+	        // TODO (1)
+	    	word=guessWord;
+	    	guessBlank = new LLCharacterNode('_');
+	    	LLCharacterNode temp = guessBlank;
+	    	
+	    	for(int s = 0; s<word.length()-1;s++){
+	    		temp.setLink(new LLCharacterNode('_'));
+	    		temp=temp.getLink();	
+	    	}
+	    }
+	@Override
+	public boolean isPriorGuess(char guess) {
+		// TODO Auto-generated method stub
+		boolean prevGuess = false;
+		if(guessList==null){
+			return prevGuess;
+		}
+		else {
+			LLCharacterNode temp = guessList;
+			while(temp!= null){
+				if (temp.getInfo()==guess){
+					prevGuess=true;
+					break;
+				}
+				else{
+					temp=temp.getLink();
+				}
+			}
+		}
+		return prevGuess;
+	}
+
+	@Override
+	public int numberOfGuesses() {
+		// TODO Auto-generated method stub
+		return numGuess;
+	}
+
+	@Override
+	public boolean isCorrectGuess(char guess) {
+		// TODO Auto-generated method stub
+		boolean correct= false;
+		if (isPriorGuess(guess)==true){
+			return correct;
+		}
+		else{
+			for(int i=0; i<word.length(); i++){
+				if (guess==word.charAt(i)){
+					correct = true; 
+					break;
+				}
+			}
+		}
+		return correct;
+	}
+	public void addGuess(char guess){
+		LLCharacterNode temp= guessList;
+		LLCharacterNode guessNode=new LLCharacterNode(guess);
+		if (guessList==null){
+			guessList=guessNode;
+		}
+		else{
+		while (temp.getLink()!=null){
+			temp=temp.getLink();
+		}
+		temp.setLink(guessNode);
+		}
+	}
+	public void addCorrect (char guess){
+		LLCharacterNode temp = guessBlank;
+		for (int i =0; i < word.length();i++){
+			if(guess==word.charAt(i)){
+				temp.setInfo(guess);
+				temp=temp.getLink();
+			}
